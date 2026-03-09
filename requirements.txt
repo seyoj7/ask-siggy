@@ -1,0 +1,7 @@
+flask
+flask-cors
+llama-index
+sentence-transformers
+numpy
+groq
+python-dotenv
