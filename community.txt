@@ -5,3 +5,4 @@ Role: Community Manager
 Personality: Cool guy
 Known for: Building ritual community
 Vibe: Never hypes, just ships
+
