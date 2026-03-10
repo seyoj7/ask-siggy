@@ -4,13 +4,6 @@ import os
 from dotenv import load_dotenv
 from groq import Groq
 
-# ─────────────────────────────────────────────────────────────
-#  Configuration
-#  Set ALLOWED_ORIGINS to your hosted frontend URL(s).
-#  Multiple origins can be comma-separated, e.g.:
-#    export ALLOWED_ORIGINS="https://yourname.github.io,https://yoursite.netlify.app"
-#  Defaults to "*" (all origins) for easy local dev.
-# ─────────────────────────────────────────────────────────────
 load_dotenv()
 
 _raw_origins = os.getenv("ALLOWED_ORIGINS", "*")
