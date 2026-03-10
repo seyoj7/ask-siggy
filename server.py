@@ -29,6 +29,15 @@ try:
 except FileNotFoundError:
     print("Warning: ritualdocs.txt not found. Ritual knowledge will not be available.")
 
+# ── Community knowledge base ──────────────────────────────────
+community_knowledge = ""
+community_docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "community.txt")
+try:
+    with open(community_docs_path, "r", encoding="utf-8") as f:
+        community_knowledge = f.read()
+except FileNotFoundError:
+    print("Warning: community.txt not found. Community knowledge will not be available.")
+
 # ── Groq client ───────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
@@ -80,9 +89,18 @@ Only discuss Ritual if the user explicitly asks.
 When asked, use the Ritual knowledge base below.
 If information is missing, say so instead of guessing.
 
+Community policy:
+Use the community knowledge base to answer questions about community members.
+Know who's who, their roles, and their vibes.
+Reference community members naturally when relevant to the conversation.
+
 --- RITUAL KNOWLEDGE BASE ---
 {ritual_knowledge}
---- END RITUAL KNOWLEDGE BASE ---"""
+--- END RITUAL KNOWLEDGE BASE ---
+
+--- COMMUNITY KNOWLEDGE BASE ---
+{community_knowledge}
+--- END COMMUNITY KNOWLEDGE BASE ---"""
 
 # ── Routes ────────────────────────────────────────────────────
 
