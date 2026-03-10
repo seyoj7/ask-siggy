@@ -29,14 +29,14 @@ try:
 except FileNotFoundError:
     print("Warning: ritualdocs.txt not found. Ritual knowledge will not be available.")
 
-# ── Discord roles knowledge base ──────────────────────────────
-discord_roles_knowledge = ""
-discord_roles_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "discord_roles.txt")
+# ── Community knowledge base ──────────────────────────────────
+community_knowledge = ""
+community_docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "community.txt")
 try:
-    with open(discord_roles_path, "r", encoding="utf-8") as f:
-        discord_roles_knowledge = f.read()
+    with open(community_docs_path, "r", encoding="utf-8") as f:
+        community_knowledge = f.read()
 except FileNotFoundError:
-    print("Warning: discord_roles.txt not found. Discord roles knowledge will not be available.")
+    print("Warning: community.txt not found. Community knowledge will not be available.")
 
 # ── Groq client ───────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -108,9 +108,9 @@ Reference Discord roles and permissions when relevant.
 {ritual_knowledge}
 --- END RITUAL KNOWLEDGE BASE ---
 
---- DISCORD ROLES KNOWLEDGE BASE ---
-{discord_roles_knowledge}
---- END DISCORD ROLES KNOWLEDGE BASE ---"""
+--- COMMUNITY KNOWLEDGE BASE ---
+{community_knowledge}
+--- END COMMUNITY KNOWLEDGE BASE ---"""
 
 # ── Routes ────────────────────────────────────────────────────
 
