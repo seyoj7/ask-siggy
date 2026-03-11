@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
+import json
+from datetime import datetime
 from dotenv import load_dotenv
 from groq import Groq
 
@@ -105,6 +107,27 @@ Reference Discord roles and permissions when relevant.
 {community_knowledge}
 --- END COMMUNITY KNOWLEDGE BASE ---"""
 
+
+LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chat_logs.json")
+
+def log_chat(role: str, message: str, session_id: str) -> None:
+    """Print chat messages and append them to chat_logs.json."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"[{timestamp}] [session:{session_id}] [{role}] {message}")
+
+    entry = {"role": role, "message": message}
+    try:
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r", encoding="utf-8") as f:
+                logs = json.load(f)
+        else:
+            logs = []
+        logs.append(entry)
+        with open(LOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(logs, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Warning: could not write to log file: {e}")
+
 # ── Routes ────────────────────────────────────────────────────
 
 @app.route('/')
@@ -129,6 +152,7 @@ def chat():
             ]
 
         conversations[session_id].append({"role": "user", "content": user_message})
+        log_chat("user", user_message, session_id)
 
         if not client:
             return jsonify({'error': 'Groq API client not configured. Please set GROQ_API_KEY.'}), 500
@@ -142,6 +166,7 @@ def chat():
 
         assistant_message = completion.choices[0].message.content
         conversations[session_id].append({"role": "assistant", "content": assistant_message})
+        log_chat("assistant", assistant_message, session_id)
 
         return jsonify({'response': assistant_message, 'session_id': session_id})
 
