@@ -25,6 +25,16 @@ Discord Username: josh.simenhoff
 Role: Community Manager
 Bio: Josh is the heart of the Ritual community. Super engaging, always in the trenches with members, makes everyone feel welcome.
 
+--- MEMBER: /Claire ---
+Discord Username: claire3653
+Role: Foundation Team
+Bio: Claire is the lead coummunity manager of Korea in ritual.
+
+--- MEMBER: Val (❖,❖) ---
+Discord Username: bunsdev
+Role: foundation team
+Bio: Val is in foundation team and developer of ritual community . teaches everyone about development and about ritual .
+
 --- MEMBER: Stefan ---
 Discord Username: stefan_1
 Role: Moderator
@@ -33,7 +43,7 @@ Bio: stefan is one of the moderator of Ritual community. Super engaging and help
 --- MEMBER: Jez | Ritual ---
 Discord Username: jez5728
 Role: Moderator
-Bio: jez is a moderator of ritual community . contribution watcher and supportive person
+Bio: jez is a moderator of ritual community. contribution watcher and supportive person
 
 --- MEMBER: Dunken | Ritual ---
 Discord Username: dunken_96
@@ -55,10 +65,6 @@ Discord Username: hinata_naruto
 Role: Event manager 
 Bio: hinata is a event manager in ritual community. she is supportive to everyone and teaches so many things too everyone .
 
---- MEMBER: Val (❖,❖) ---
-Discord Username: bunsdev
-Role: foundation team
-Bio: Val is in foundation team and developer of ritual community . teaches everyone about development and about ritual .
 
 --- MEMBER: Cutie Eric | Ritual ❖ ---
 Discord Username: ericgudboy
