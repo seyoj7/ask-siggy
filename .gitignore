@@ -1,3 +1,4 @@
 Ask_Siggy web/
 *ngrok.exe
 *chat_logs.json
+.env
