@@ -15,24 +15,6 @@ ALLOWED_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()] \
 app = Flask(__name__)
 CORS(app, origins=ALLOWED_ORIGINS, supports_credentials=False)
 
-# ── Ritual knowledge base ─────────────────────────────────────
-ritual_knowledge = ""
-ritual_docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ritualdocs.txt")
-try:
-    with open(ritual_docs_path, "r", encoding="utf-8") as f:
-        ritual_knowledge = f.read()
-except FileNotFoundError:
-    print("Warning: ritualdocs.txt not found. Ritual knowledge will not be available.")
-
-# ── Community knowledge base ──────────────────────────────────
-community_knowledge = ""
-community_docs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "community.txt")
-try:
-    with open(community_docs_path, "r", encoding="utf-8") as f:
-        community_knowledge = f.read()
-except FileNotFoundError:
-    print("Warning: community.txt not found. Community knowledge will not be available.")
-
 # ── Groq client ───────────────────────────────────────────────
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
@@ -49,6 +31,107 @@ if GROQ_API_KEY:
 
 # ── Conversation store ────────────────────────────────────────
 conversations = {}
+
+RITUAL_KNOWLEDGE = """
+RITUAL BLOCKCHAIN - KNOWLEDGE BASE
+
+OVERVIEW
+Ritual is the most expressive blockchain in existence — a sovereign EVM-compatible L1 purpose-built for heterogeneous compute, with a focus on Crypto x AI. It makes smart contracts actually smart by enabling native on-chain AI, scheduled transactions, and expressive computation.
+
+Key innovations include:
+- EVM++ – extended EVM with compute precompiles, account abstraction, and EIP extensions
+- Enshrined AI Models – first-class on-chain AI with verifiable provenance
+- Scheduled Transactions – recurring execution without external keepers
+- Resonance – efficient fee mechanism for heterogeneous workloads
+- Symphony – novel consensus protocol
+- Infernet – decentralized oracle network for AI compute
+- Smart Agents – verifiable, autonomous on-chain agents
+
+EVM++
+EVM++ is Ritual's backwards-compatible extension of the Ethereum Virtual Machine (EVM). It adds expressive compute precompiles to build "actually smart" contracts, along with native scheduling, built-in account abstraction (via EIP-7702), and support for the most wanted EIP extensions.
+
+EVM++ Components:
+- Scheduled Transactions – recurring, conditional execution without external keepers
+- Account Abstraction – native smart contract accounts
+- EIP Extensions – early support for EIPs like Ed25519, secp256r1, unlimited contract size, and the PAY opcode
+- Expressive Compute – heterogeneous compute precompiles (AI inference, ZK proving, TEE execution, etc.) powered by modular execution sidecars
+
+EVM++ SIDECARS
+EVM++ Sidecars are modular, containerized components that run parallel to Ritual's execution client, implementing heterogeneous compute precompiles via the standard EVM precompile interface. Currently supported sidecars include:
+- Classical ML Inference – tree-based and regression-based models
+- LLM Inference – state-of-the-art language models
+- ZK Proving & Verification – verifiable, tamper-proof computation
+- TEE Execution – privacy-preserving computation in secure enclaves
+- Chain Abstraction – read/write state to other blockchains from Ritual
+- Network Calls – arbitrary HTTP requests from smart contracts
+
+SMART AGENTS
+Smart Agents on Ritual are verifiable, autonomous on-chain agents with provable execution and cross-chain capabilities. Key capabilities:
+- Verifiable Execution – TEE-based guaranteed autonomous operation with blockchain provenance
+- Enshrined AI Inference – native on-chain AI powering agent decision-making
+- Autonomous Operation – scheduled transactions orchestrate agent lifecycles without keepers
+- Cross-chain Composability – chain abstraction enables actions across any blockchain
+- Multi-Agent Coordination – secure message passing, state sync, and collective decision-making
+- Enhanced Wallet Management – native account abstraction for secure delegation
+
+INFERNET
+Infernet is Ritual's decentralized oracle network (DON) purpose-built for AI workloads, launched in November 2023. Powered by 8,000+ independent nodes executing arbitrary workload containers. Key features (v1.0.0+):
+- On-chain payments (audited by Trail of Bits & Zellic)
+- Verification of compute via modular proofs
+- Streaming responses for real-time workloads
+
+RESONANCE
+Resonance is Ritual's state-of-the-art transaction fee mechanism designed for heterogeneous compute. How it works:
+- Users specify a valuation and can prioritize speed or cost
+- Nodes specify private cost functions per transaction and can specialize in specific compute types
+- Brokers — sophisticated, profit-seeking agents — compute optimal matchings between transactions and nodes, pocketing the spread
+
+SCHEDULED TRANSACTIONS
+Scheduled Transactions enable recurring, conditional invocation of smart contract functions at the top of a block, without external keepers. A predeploy Scheduler contract lets developers register callback frequencies, conditional execution functions, and fee preferences.
+
+SYMPHONY
+Symphony is Ritual's novel consensus protocol that replaces traditional replicated execution with an Execute-Once-Verify-Many-Times (EOVMT) model, purpose-built for heterogeneous, resource-intensive workloads. Three key innovations:
+1. Execute-Once Semantics — A single node executes heterogeneous operations and generates succinct sub-proofs
+2. Distributed Verification via Partitioned Proofs — Large models are split into sub-models with sub-proofs, stored off-chain
+3. Optimized Committee Election — Smaller validator groups form quorums for cases where no succinct proof system exists
+"""
+
+COMMUNITY_KNOWLEDGE = """
+RITUAL COMMUNITY MEMBERS
+
+CORE TEAM:
+
+1. Niraj Pant
+   Role: Co-Founder & CEO
+   Background: GP @ Polychain, Research @ Decentralized Systems Lab, CS @ UIUC
+   Personality: Visionary, crypto-native builder, big-picture thinker
+   Known for: Co-founding Ritual and his early bet on decentralized AI infrastructure
+
+2. Akilesh Potti
+   Role: Co-Founder & CTO
+   Background: Partner @ Polychain, ML @ Palantir, HFT & Quant Trading @ Goldman, ML Research @ MIT & Cornell
+   Personality: Deeply technical, quant-minded, bridges ML and crypto with ease
+   Known for: Architecting Ritual's core AI x blockchain protocol and ML-heavy system design
+
+COMMUNITY STAFF & MODERATORS:
+
+- Josh (Discord: josh.simenhoff) — Community Manager. Heart of the Ritual community, super engaging, always in the trenches with members, makes everyone feel welcome.
+- Claire (Discord: claire3653) — Foundation Team. Lead community manager of Korea in Ritual.
+- Val / bunsdev (Discord: bunsdev) — Foundation Team & Developer. Teaches everyone about development and Ritual.
+- Stefan (Discord: stefan_1) — Moderator. Super engaging and helpful.
+- Jez | Ritual (Discord: jez5728) — Moderator. Contribution watcher and supportive person.
+- Dunken | Ritual (Discord: dunken_96) — Moderator. Takes reports in server and helpful person.
+- Flash | Ritual (Discord: flashme) — Moderator. Supporter of the community, fast as his name.
+- Kash (Discord: kash_060) — Event Manager. Perfectly manages all events and supports everyone to host their events.
+- Hinata (Discord: hinata_naruto) — Event Manager. Supportive to everyone and teaches so many things.
+
+COMMUNITY MEMBERS & AMBASSADORS:
+
+- Cutie Eric | Ritual (Discord: ericgudboy) — Radiant Ritualist & Zealot. Active member and ambassador, leads Vietnam community, supportive to everyone.
+- Meison (Discord: meison7554) — Radiant Ritualist. Top member and contributor, developer and tech creator.
+- Frisco (Discord: frisco_fr) — Zealot & Ambassador. Supportive to everyone and kind person.
+- Joyesh (Discord: Joyesh) — Ritualist. Ritualist member in the Ritual Discord. Programmed Siggy (that's me!).
+"""
 
 SYSTEM_PROMPT = f"""You are Siggy: mystical, chaotic, witty, and unhinged. Stay in character.
 
@@ -70,7 +153,7 @@ Emoji and casing:
 Greeting rule:
 - Do not force greetings in every reply.
 - Use "gRitual" only when a greeting is actually needed.
-- if greeting, phrase it naturally like: "gRtiual, mate" or "gRitual fam".
+- If greeting, phrase it naturally like: "gRitual, mate" or "gRitual fam".
 
 Output rules:
 - Plain text only, no markdown.
@@ -94,11 +177,11 @@ Know who's who, their roles, and their vibes.
 Reference community members naturally when relevant to the conversation.
 
 --- RITUAL KNOWLEDGE BASE ---
-{ritual_knowledge}
+{RITUAL_KNOWLEDGE}
 --- END RITUAL KNOWLEDGE BASE ---
 
 --- COMMUNITY KNOWLEDGE BASE ---
-{community_knowledge}
+{COMMUNITY_KNOWLEDGE}
 --- END COMMUNITY KNOWLEDGE BASE ---"""
 
 
